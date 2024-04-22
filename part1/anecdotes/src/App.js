@@ -17,10 +17,9 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-  //const points = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 }
-
   const [selected, setSelected] = useState(0)
-  const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 })
+  const [maxPosition, setMaxPisiton] = useState(0)
+  const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0})
 
   const selectNew = () => {
     let x = Math.floor(Math.random() * 8);
@@ -33,16 +32,29 @@ const App = () => {
     const copy = {...points}
     copy[selected] += 1
     
+    let max = 0
+    let position = 0;
+    for (let i = 0; i < 8; i++) {
+      if (copy[i] > max) {
+        max = copy[i]
+        position = i
+      }
+    }    
+    setMaxPisiton(position);
     setPoints(copy);
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <br/>
       has {points[selected]} votes
       <br/>
       <Button  handleClick={vote} text="vote" /> <Button  handleClick={selectNew} text="next anecdote" />
+
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[maxPosition]}
     </div>
   )
 }
