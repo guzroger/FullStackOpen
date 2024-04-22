@@ -17,18 +17,32 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  //const points = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 }
+
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 })
 
   const selectNew = () => {
     let x = Math.floor(Math.random() * 8);
     setSelected(x);
+    
+  }
+
+  const vote = () => {
+    
+    const copy = {...points}
+    copy[selected] += 1
+    
+    setPoints(copy);
   }
 
   return (
     <div>
       {anecdotes[selected]}
       <br/>
-      <Button  handleClick={selectNew} text="next anecdote" />
+      has {points[selected]} votes
+      <br/>
+      <Button  handleClick={vote} text="vote" /> <Button  handleClick={selectNew} text="next anecdote" />
     </div>
   )
 }
