@@ -16,11 +16,10 @@ const Header = ({title}) => {
 const Total = ({parts}) => {
   const total = parts.reduce( (acumulador,  part) => { 
     const exercise = part.exercises 
-    console.log(exercise);
-    return acumulador + exercise })
+    return acumulador + part.exercises }, 0)
   return (
   <div>
-      <p><b>Total of {total} exervices</b></p>
+      <p><b>Total of {total} exercises</b></p>
   </div>)
 }
 const Course = ({course}) => {
