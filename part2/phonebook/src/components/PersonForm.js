@@ -19,6 +19,7 @@ const PersonForm = (props) => {
         props.setPersons(props.persons.concat(response.data));
         setNewName('');
         setNewNumber('');
+        props.notification( `${newName} added`,false  )
       })
       
     }
@@ -31,6 +32,10 @@ const PersonForm = (props) => {
           props.setPersons(props.persons.map(person => person.id !== found.id ? person : response.data));
           setNewName('');
           setNewNumber('');
+          props.notification( `${newName} updated`, false  )
+        }).catch( ()=> {
+          props.notification( `${newName} not exist to update`, true  )
+          props.setPersons(props.persons.filter( item => item.id!=found.id) );
         })
       }
     }
