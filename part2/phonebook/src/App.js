@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import PersonDisplay from './components/PersonDisplay';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
-import axios from 'axios';
+import personsService from './services/persons';
 
 function App() {
   
@@ -21,7 +21,7 @@ function App() {
     const eventHandler = response => {
       setPersons(response.data);
     }
-    const promise = axios.get('http://localhost:3001/persons');
+    const promise = personsService.getAll();
     promise.then(eventHandler);
   }, []);
 
@@ -33,7 +33,7 @@ function App() {
       <PersonForm  setPersons={setPersons} persons={persons} />
       <h2>Numbers</h2>
       <ul>
-        {personsToShow.map( (person) => <PersonDisplay key={person.id} person={person} />
+        {personsToShow.map( (person) => <PersonDisplay key={person.id} person={person} persons={persons} setPersons={setPersons} />
          ) }
       </ul>
     </div>
